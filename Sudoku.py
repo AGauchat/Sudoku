@@ -81,7 +81,7 @@ class Sudok():
 
         for i in range(self.n3, self.n4):
             for j in range(self.n1, self.n2):
-                if self.tablero[i][j] == 'x':
+                if self.tablero[i][j] == 'x' or self.tablero[i][j] == ' ':
                     return i, j
 
     def insertar_numero(self, num):
