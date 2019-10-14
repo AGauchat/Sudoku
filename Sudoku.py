@@ -25,6 +25,9 @@ class Sudok():
         self.tableroV = self.tablero
 
     def verificar_x(self):
+
+        # Verifica cuantos espacios vacios (x) hay, si no hay ninguno pasa al siguiente bloque
+
         x = 0
         try:
             for i in range(self.n3, self.n4):
@@ -49,6 +52,9 @@ class Sudok():
                     self.n3 = self.n3 + 3
 
     def verificar_bloque(self, num):
+
+        # Verifica que no se repita el numero en el bloque
+
         try:
             for i in range(self.n3, self.n4):
                 for j in range(self.n1, self.n2):
@@ -59,6 +65,9 @@ class Sudok():
             return
 
     def verificar_fila_columna(self, i, j, num):
+
+        # Verifica que no se repita el numero en el filas y columnas
+
         for columna in range(0, 9):
             if num == self.tablero[i][columna]:
                 return False
@@ -67,6 +76,9 @@ class Sudok():
                 return False
 
     def verificar_espacio(self):
+
+        # Se fija si hay un espacio vacio (x) para poder colocar un numero y devulve sus coordenadas
+
         for i in range(self.n3, self.n4):
             for j in range(self.n1, self.n2):
                 if self.tablero[i][j] == 'x':
