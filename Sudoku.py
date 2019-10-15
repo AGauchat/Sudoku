@@ -84,15 +84,13 @@ class Sudok():
                 if self.tablero[i][j] == 'x' or self.tablero[i][j] == ' ':
                     return i, j
 
-    def insertar_numero(self, num):
-        k = self.verificar_espacio()
-        if self.verificar_bloque(num) == None and self.verificar_fila_columna(k[0], k[1], num) == None:
-            self.tablero[k[0]][k[1]] = num
-            self.verificar_x()
-
-            if k == (8, 8):
-                return 'Sudoku completado'
-
-            return "Numero ingresado"
-        else:
-            return "Ingrese otro numero"
+    def borrar_numero(self, fila, columna):
+        try:
+            for i in range(self.n3, self.n4):
+                for j in range(self.n1, self.n2):
+                    if self.tableroV[i][j] == 'x':
+                        self.tablero[int(fila)][int(columna)] = 'x'
+                    else:
+                        print('Ese numero no se puede borrar')
+        except:
+            return

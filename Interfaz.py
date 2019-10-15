@@ -14,7 +14,7 @@ class Interfaz():
         print("Llenaremos los espacios por bloques de 3x3, al terminar un bloque se podra pasar al siguiente")
 
     def jugar(self):
-        print("Ingrese numero en el espacio vacio")
+        print("Ingrese numero en el primer espacio vacio")
         self.coord = self.Su.verificar_espacio()
         self.Su.tablero[self.coord[0]][self.coord[1]] = " "
         for i in range(0, 9):
@@ -33,10 +33,18 @@ class Interfaz():
             print("Numero ingresado")
         else:
             print("Ingrese otro numero")
+            print("¿Desea borrar algun numero? 1-SI // 2-NO")
+            o = input(">>")
+            if o == '1':
+                f = input('Ingrese numero de fila >> ')
+                c = input('Ingrese numero de columna >> ')
+                self.Su.borrar_numero(f, c)
 
     def terminado(self):
         if self.coord == (8, 8) and self.Su.verificar_x() == 0:
             return True
+        else:
+            return False
 
 
 juego = Interfaz()
