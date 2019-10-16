@@ -97,8 +97,6 @@ class TestSudoku(unittest.TestCase):
 
         self.assertEqual("Numero ingresado", self.juego.insertar_numero('4', 8, 8))
 
-
-
         self.assertTrue(self.juego.gano())
 
 
