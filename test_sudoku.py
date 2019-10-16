@@ -18,50 +18,71 @@ class TestSudoku(unittest.TestCase):
         ])
 
     def test_fila_incorrecto(self):
-        self.assertEqual("Ingrese otro numero", self.juego.insertar_numero('7'))
+        self.assertEqual("Ingrese otro numero", self.juego.insertar_numero('7', 0, 2))
+
+        self.assertEqual(self.juego.tablero, [
+            ['5', '3', 'x', 'x', '7', 'x', 'x', 'x', 'x'],
+            ['6', 'x', 'x', '1', '9', '5', 'x', 'x', 'x'],
+            ['x', '9', '8', 'x', 'x', 'x', 'x', '6', 'x'],
+            ['8', 'x', 'x', 'x', '6', 'x', 'x', 'x', '3'],
+            ['4', 'x', 'x', '8', 'x', '3', 'x', 'x', '1'],
+            ['7', 'x', 'x', 'x', '2', 'x', 'x', 'x', '6'],
+            ['x', '6', 'x', 'x', 'x', 'x', '2', '8', 'x'],
+            ['x', 'x', 'x', '4', '1', '9', 'x', 'x', '5'],
+            ['x', 'x', 'x', 'x', '8', 'x', 'x', '7', '9']])
+
+        self.assertEqual(False, self.juego.gano())
 
     def test_columna_incorrecto(self):
-        self.assertEqual("Numero ingresado", self.juego.insertar_numero('1'))
-        self.assertEqual("Numero ingresado", self.juego.insertar_numero('2'))
-        self.assertEqual("Numero ingresado", self.juego.insertar_numero('4'))
-        self.assertEqual("Ingrese otro numero", self.juego.insertar_numero('7'))
+        self.assertEqual("Ingrese otro numero", self.juego.insertar_numero('8', 0, 2))
+
+        self.assertEqual(self.juego.tablero, [
+            ['5', '3', 'x', 'x', '7', 'x', 'x', 'x', 'x'],
+            ['6', 'x', 'x', '1', '9', '5', 'x', 'x', 'x'],
+            ['x', '9', '8', 'x', 'x', 'x', 'x', '6', 'x'],
+            ['8', 'x', 'x', 'x', '6', 'x', 'x', 'x', '3'],
+            ['4', 'x', 'x', '8', 'x', '3', 'x', 'x', '1'],
+            ['7', 'x', 'x', 'x', '2', 'x', 'x', 'x', '6'],
+            ['x', '6', 'x', 'x', 'x', 'x', '2', '8', 'x'],
+            ['x', 'x', 'x', '4', '1', '9', 'x', 'x', '5'],
+            ['x', 'x', 'x', 'x', '8', 'x', 'x', '7', '9']])
+
+        self.assertEqual(False, self.juego.gano())
 
     def test_bloque_incorrecto(self):
-        self.assertEqual("Numero ingresado", self.juego.insertar_numero('1'))
-        self.assertEqual("Ingrese otro numero", self.juego.insertar_numero('9'))
+        self.assertEqual("Ingrese otro numero", self.juego.insertar_numero('6', 0, 2))
 
-    def test_llenar_prox_bloque_fila_incorrecta(self):
-        self.assertEqual("Numero ingresado", self.juego.insertar_numero('1'))
-        self.assertEqual("Numero ingresado", self.juego.insertar_numero('7'))
-        self.assertEqual("Numero ingresado", self.juego.insertar_numero('4'))
-        self.assertEqual("Numero ingresado", self.juego.insertar_numero('2'))
-        self.assertEqual("Ingrese otro numero", self.juego.insertar_numero('5'))
+        self.assertEqual(self.juego.tablero, [
+            ['5', '3', 'x', 'x', '7', 'x', 'x', 'x', 'x'],
+            ['6', 'x', 'x', '1', '9', '5', 'x', 'x', 'x'],
+            ['x', '9', '8', 'x', 'x', 'x', 'x', '6', 'x'],
+            ['8', 'x', 'x', 'x', '6', 'x', 'x', 'x', '3'],
+            ['4', 'x', 'x', '8', 'x', '3', 'x', 'x', '1'],
+            ['7', 'x', 'x', 'x', '2', 'x', 'x', 'x', '6'],
+            ['x', '6', 'x', 'x', 'x', 'x', '2', '8', 'x'],
+            ['x', 'x', 'x', '4', '1', '9', 'x', 'x', '5'],
+            ['x', 'x', 'x', 'x', '8', 'x', 'x', '7', '9']])
 
-    def test_llenar_prox_bloque_columna_incorrecta(self):
-        self.assertEqual("Numero ingresado", self.juego.insertar_numero('1'))
-        self.assertEqual("Numero ingresado", self.juego.insertar_numero('7'))
-        self.assertEqual("Numero ingresado", self.juego.insertar_numero('4'))
-        self.assertEqual("Numero ingresado", self.juego.insertar_numero('2'))
-        self.assertEqual("Ingrese otro numero", self.juego.insertar_numero('8'))
+        self.assertEqual(False, self.juego.gano())
 
-    def test_llenar_prox_bloque_bloque_incorrecta(self):
-        self.assertEqual("Numero ingresado", self.juego.insertar_numero('1'))
-        self.assertEqual("Numero ingresado", self.juego.insertar_numero('7'))
-        self.assertEqual("Numero ingresado", self.juego.insertar_numero('4'))
-        self.assertEqual("Numero ingresado", self.juego.insertar_numero('2'))
-        self.assertEqual("Ingrese otro numero", self.juego.insertar_numero('9'))
+    def test_numero_ingresado(self):
+        self.assertEqual("Numero ingresado", self.juego.insertar_numero('2', 0, 2))
+        self.assertEqual("Numero ingresado", self.juego.insertar_numero('4', 1, 1))
 
-    def test_llenar_prox_bloque_correcto(self):
-        self.assertEqual("Numero ingresado", self.juego.insertar_numero('1'))
-        self.assertEqual("Numero ingresado", self.juego.insertar_numero('7'))
-        self.assertEqual("Numero ingresado", self.juego.insertar_numero('4'))
-        self.assertEqual("Numero ingresado", self.juego.insertar_numero('2'))
-        self.assertEqual("Numero ingresado", self.juego.insertar_numero('2'))
+        self.assertEqual(self.juego.tablero, [
+            ['5', '3', '2', 'x', '7', 'x', 'x', 'x', 'x'],
+            ['6', '4', 'x', '1', '9', '5', 'x', 'x', 'x'],
+            ['x', '9', '8', 'x', 'x', 'x', 'x', '6', 'x'],
+            ['8', 'x', 'x', 'x', '6', 'x', 'x', 'x', '3'],
+            ['4', 'x', 'x', '8', 'x', '3', 'x', 'x', '1'],
+            ['7', 'x', 'x', 'x', '2', 'x', 'x', 'x', '6'],
+            ['x', '6', 'x', 'x', 'x', 'x', '2', '8', 'x'],
+            ['x', 'x', 'x', '4', '1', '9', 'x', 'x', '5'],
+            ['x', 'x', 'x', 'x', '8', 'x', 'x', '7', '9']])
 
+        self.assertEqual(False, self.juego.gano())
 
-class TestSudokuCompletado(unittest.TestCase):
-
-    def setUp(self):
+    def test_gano(self):
         self.juego = Sudok([
             '531171111',
             '611195111',
@@ -74,14 +95,11 @@ class TestSudokuCompletado(unittest.TestCase):
             '11118117x'
         ])
 
-    # cambiar n1 = 6 n2 = 9 n3 = 6 n4 = 9 para que tome el ultimo bloque
+        self.assertEqual("Numero ingresado", self.juego.insertar_numero('4', 8, 8))
 
-    def test_fila_incorrecto(self):
-        self.juego.n1 = 6
-        self.juego.n2 = 9
-        self.juego.n3 = 6
-        self.juego.n4 = 9
-        self.assertEqual('Sudoku completado', self.juego.insertar_numero('9'))
+
+
+        self.assertTrue(self.juego.gano())
 
 
 if __name__ == "__main__":

@@ -7,49 +7,28 @@ class Interfaz():
     def __init__(self):
         self.tablero = api()
         self.Su = Sudok(self.tablero)
-        self.coord = ()
-
-    def reglas(self):
-        print("--REGLAS--")
-        print("Llenaremos los espacios por bloques de 3x3, al terminar un bloque se podra pasar al siguiente")
 
     def jugar(self):
-        print("Ingrese numero en el primer espacio vacio")
-        self.coord = self.Su.verificar_espacio()
-        self.Su.tablero[self.coord[0]][self.coord[1]] = " "
         for i in range(0, 9):
             for j in range(0, 9):
                 print(self.Su.tablero[i][j], end=" ")
             print(" ")
 
+        print("Ingrese fila donde desea poner el numero (0 a 8)")
+        f = int(input(">>"))
+        print("Ingrese columna donde desea poner el numero (0 a 8)")
+        c = int(input(">>"))
+        print("Ingrese numero")
         n = input(">>")
-        self.ingresar_numero(n)
 
-    def ingresar_numero(self, num):
-        if self.Su.verificar_bloque(num) == None and self.Su.verificar_fila_columna(self.coord[0], self.coord[1], num) == None:
-            self.Su.tablero[self.coord[0]][self.coord[1]] = num
-            self.Su.verificar_x()
+        print(self.Su.insertar_numero(n, f, c))
 
-            print("Numero ingresado")
-        else:
-            print("Ingrese otro numero")
-            print("¿Desea borrar algun numero? 1-SI // 2-NO")
-            o = input(">>")
-            if o == '1':
-                f = input('Ingrese numero de fila >> ')
-                c = input('Ingrese numero de columna >> ')
-                self.Su.borrar_numero(f, c)
-
-    def terminado(self):
-        if self.coord == (8, 8) and self.Su.verificar_x() == 0:
+    def estado_juego(self):
+        if self.Su.gano() is True:
             return True
-        else:
-            return False
+        return False
 
 
 juego = Interfaz()
-t = juego.terminado()
-juego.reglas()
-while t != True:
-
+while juego.estado_juego() is not True:
     juego.jugar()

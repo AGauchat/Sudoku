@@ -5,11 +5,6 @@ class Sudok():
         self.tablero = [[0 for __ in range(9)] for _ in range(9)]
         self.tableroV = tablero
 
-        self.n1 = 0
-        self.n2 = 3
-        self.n3 = 0
-        self.n4 = 3
-
         i = -1
         j = -1
         for fila in self.tableroV:
@@ -24,45 +19,34 @@ class Sudok():
 
         self.tableroV = self.tablero
 
-    def verificar_x(self):
-
-        # Verifica cuantos espacios vacios (x) hay, si no hay ninguno pasa al siguiente bloque
-
-        x = 0
-        try:
-            for i in range(self.n3, self.n4):
-                for j in range(self.n1, self.n2):
-                    k = self.tablero[i][j]
-                    if k == 'x':
-                        x += 1
-        except:
-            return
-
-        if 0 == x:
-            if i == (self.n2 - 1) or self.n2 < 9:
-                self.n1 = self.n1 + 3
-                self.n2 = self.n2 + 3
-            else:
-                self.n1 = 0
-                self.n2 = 3
-                self.n4 = self.n4 + 3
-                if self.n4 > 9:
-                    return
-                else:
-                    self.n3 = self.n3 + 3
-
-    def verificar_bloque(self, num):
+    def verificar_bloque(self, num, fila, columna):
 
         # Verifica que no se repita el numero en el bloque
 
-        try:
-            for i in range(self.n3, self.n4):
-                for j in range(self.n1, self.n2):
-                    k = self.tablero[i][j]
-                    if num == k:
-                        return False
-        except:
-            return
+        if (fila < 3):
+            fila = 0
+
+        elif (fila >= 3 and fila <= 5):
+            fila = 3
+
+        else:
+            fila = 6
+
+        if (columna < 3):
+            columna = 0
+
+        elif (columna >= 3 and columna <= 5):
+            columna = 3
+
+        else:
+            columna = 6
+
+        for i in range(3):
+            for j in range(3):
+                if self.tablero[fila + i][columna + j] == num:
+                    return False
+
+        return True
 
     def verificar_fila_columna(self, i, j, num):
 
@@ -75,22 +59,39 @@ class Sudok():
             if num == self.tablero[fila][j]:
                 return False
 
-    def verificar_espacio(self):
+        return True
 
-        # Se fija si hay un espacio vacio (x) para poder colocar un numero y devulve sus coordenadas
+    def verificar_x(self, i, j):
+        if self.tableroV[i][j] == 'x':
+            return True
 
-        for i in range(self.n3, self.n4):
-            for j in range(self.n1, self.n2):
-                if self.tablero[i][j] == 'x' or self.tablero[i][j] == ' ':
-                    return i, j
+        return False
 
-    def borrar_numero(self, fila, columna):
-        try:
-            for i in range(self.n3, self.n4):
-                for j in range(self.n1, self.n2):
-                    if self.tableroV[i][j] == 'x':
-                        self.tablero[int(fila)][int(columna)] = 'x'
-                    else:
-                        print('Ese numero no se puede borrar')
-        except:
-            return
+    def gano(self):
+        for i in range(0, 9):
+            for j in range(0, 9):
+                if self.tablero[i][j] == 'x':
+                    return False
+
+        return True
+
+    def insertar_numero(self, num, i, j):
+
+        if self.gano is True:
+            return 'Ganaste'
+
+        if self.verificar_x(i, j) is True:
+            if self.verificar_fila_columna(i, j, num) is True:
+                if self.verificar_bloque(num, i, j) is True:
+
+                    self.tablero[i][j] = num
+                    return("Numero ingresado")
+
+                else:
+                    return("Ingrese otro numero")
+
+            else:
+                return("Ingrese otro numero")
+
+        else:
+            return("Ingrese otro numero")
