@@ -52,6 +52,6 @@ class Interfaz():
         return False
 
 
-# juego = Interfaz()
-# while juego.estado_juego() is not True:
-#     juego.jugar()
+juego = Interfaz()
+while juego.estado_juego() is not True:
+    juego.jugar()
