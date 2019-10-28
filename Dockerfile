@@ -6,4 +6,4 @@ WORKDIR /Sudoku
 
 RUN pip install -r requerimientos.txt
 
-CMD [ "python3" , "./Interfaz.py" ]
+CMD [ "python3" , "./interfaz.py" ]
