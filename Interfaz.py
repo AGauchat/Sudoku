@@ -1,3 +1,4 @@
+import os
 from Sudoku import Sudok
 from Api import api
 
@@ -9,21 +10,24 @@ class Interfaz():
         self.Su = Sudok(self.tablero)
 
     def jugar(self):
+        print('\n-SUDOKU-')
         for i in range(0, 9):
             for j in range(0, 9):
                 print(self.Su.tablero[i][j], end=" ")
             print(" ")
 
         try:
-            print("Ingrese fila donde desea poner el numero (0 a 8)")
+            print("\nIngrese fila donde desea poner el numero (0 a 8)")
             f = int(input(">>"))
             if self.verificar_fyc(f) is True:
-                print("Ingrese columna donde desea poner el numero (0 a 8)")
+                print("\nIngrese columna donde desea poner el numero (0 a 8)")
                 c = int(input(">>"))
                 if self.verificar_fyc(c) is True:
-                    print("Ingrese numero")
+                    print("\nIngrese numero")
                     n = int(input(">>"))
                     if self.verificar_num(n) is True:
+                        os.system("clear")
+                        n = str(n)
                         print(self.Su.insertar_numero(n, f, c))
                     else:
                         print('Ingrese un numero correcto')

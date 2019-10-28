@@ -1,4 +1,5 @@
 import unittest
+from parameterized import parameterized
 from Sudoku import Sudok
 
 
@@ -17,8 +18,15 @@ class TestSudoku(unittest.TestCase):
             'xxxx8xx79'
         ])
 
-    def test_fila_incorrecto(self):
-        self.assertEqual("Ingrese otro numero", self.juego.insertar_numero('7', 0, 2))
+
+    @parameterized.expand([
+        ('7', 0, 2),
+        ('8', 3, 1),
+        ('9', 8, 3),
+        ('2', 5, 7),
+        ('6', 6, 3)])
+    def test_fila_incorrecto(self, num, fila, columna):
+        self.assertEqual(self.juego.insertar_numero(num, fila, columna), "-- El numero se repite en la fila o en la columna --")
 
         self.assertEqual(self.juego.tablero, [
             ['5', '3', 'x', 'x', '7', 'x', 'x', 'x', 'x'],
@@ -33,8 +41,14 @@ class TestSudoku(unittest.TestCase):
 
         self.assertEqual(False, self.juego.gano())
 
-    def test_columna_incorrecto(self):
-        self.assertEqual("Ingrese otro numero", self.juego.insertar_numero('8', 0, 2))
+    @parameterized.expand([
+        ('8', 0, 2),
+        ('6', 3, 1),
+        ('1', 8, 3),
+        ('7', 5, 7),
+        ('1', 6, 3)])
+    def test_columna_incorrecto(self, num, fila, columna):
+        self.assertEqual(self.juego.insertar_numero(num, fila, columna), "-- El numero se repite en la fila o en la columna --")
 
         self.assertEqual(self.juego.tablero, [
             ['5', '3', 'x', 'x', '7', 'x', 'x', 'x', 'x'],
@@ -49,8 +63,14 @@ class TestSudoku(unittest.TestCase):
 
         self.assertEqual(False, self.juego.gano())
 
-    def test_bloque_incorrecto(self):
-        self.assertEqual("Ingrese otro numero", self.juego.insertar_numero('6', 0, 2))
+    @parameterized.expand([
+        ('6', 0, 6),
+        ('5', 8, 6),
+        ('4', 8, 5),
+        ('3', 5, 3),
+        ('1', 5, 7)])
+    def test_bloque_incorrecto(self, num, fila, columna):
+        self.assertEqual(self.juego.insertar_numero(num, fila, columna), "-- El numero se encuentra dentro del bloque --")
 
         self.assertEqual(self.juego.tablero, [
             ['5', '3', 'x', 'x', '7', 'x', 'x', 'x', 'x'],
@@ -65,13 +85,18 @@ class TestSudoku(unittest.TestCase):
 
         self.assertEqual(False, self.juego.gano())
 
-    def test_numero_ingresado(self):
-        self.assertEqual("Numero ingresado", self.juego.insertar_numero('2', 0, 2))
-        self.assertEqual("Numero ingresado", self.juego.insertar_numero('4', 1, 1))
+    @parameterized.expand([
+        ('4', 3, 4),
+        ('6', 3, 8),
+        ('1', 4, 0),
+        ('5', 4, 3),
+        ('7', 4, 5)])
+    def test_valor_fijo(self, num, fila, columna):
+        self.assertEqual(self.juego.insertar_numero(num, fila, columna), "-- Esa posición es fija --")
 
         self.assertEqual(self.juego.tablero, [
-            ['5', '3', '2', 'x', '7', 'x', 'x', 'x', 'x'],
-            ['6', '4', 'x', '1', '9', '5', 'x', 'x', 'x'],
+            ['5', '3', 'x', 'x', '7', 'x', 'x', 'x', 'x'],
+            ['6', 'x', 'x', '1', '9', '5', 'x', 'x', 'x'],
             ['x', '9', '8', 'x', 'x', 'x', 'x', '6', 'x'],
             ['8', 'x', 'x', 'x', '6', 'x', 'x', 'x', '3'],
             ['4', 'x', 'x', '8', 'x', '3', 'x', 'x', '1'],
@@ -79,6 +104,17 @@ class TestSudoku(unittest.TestCase):
             ['x', '6', 'x', 'x', 'x', 'x', '2', '8', 'x'],
             ['x', 'x', 'x', '4', '1', '9', 'x', 'x', '5'],
             ['x', 'x', 'x', 'x', '8', 'x', 'x', '7', '9']])
+
+        self.assertEqual(False, self.juego.gano())
+
+    @parameterized.expand([
+        ('2', 0, 2),
+        ('4', 1, 1),
+        ('1', 8, 2),
+        ('3', 7, 7),
+        ('4', 0, 8)])
+    def test_numero_ingresado(self, num, fila, columna):
+        self.assertEqual(self.juego.insertar_numero(num, fila, columna), "-- Numero ingresado --")
 
         self.assertEqual(False, self.juego.gano())
 
@@ -92,10 +128,8 @@ class TestSudoku(unittest.TestCase):
             '711121116',
             '161111281',
             '111419115',
-            '11118117x'
+            '111181171'
         ])
-
-        self.assertEqual("Numero ingresado", self.juego.insertar_numero('4', 8, 8))
 
         self.assertTrue(self.juego.gano())
 

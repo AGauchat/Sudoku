@@ -3,21 +3,20 @@ class Sudok():
     def __init__(self, tablero):
 
         self.tablero = [[0 for __ in range(9)] for _ in range(9)]
-        self.tableroV = tablero
-
+        self.tableroV = [[0 for __ in range(9)] for _ in range(9)]
         i = -1
         j = -1
-        for fila in self.tableroV:
+        for fila in tablero:
             i += 1
             j = -1
             for valor in fila:
                 j += 1
                 if valor.isdigit():
                     self.tablero[i][j] = valor
+                    self.tableroV[i][j] = valor
                 if valor == 'x':
                     self.tablero[i][j] = valor
-
-        self.tableroV = self.tablero
+                    self.tableroV[i][j] = valor
 
     def verificar_bloque(self, num, fila, columna):
 
@@ -78,20 +77,20 @@ class Sudok():
     def insertar_numero(self, num, i, j):
 
         if self.gano is True:
-            return 'Ganaste'
+            return '-- Ganaste --'
 
         if self.verificar_x(i, j) is True:
             if self.verificar_fila_columna(i, j, num) is True:
                 if self.verificar_bloque(num, i, j) is True:
 
                     self.tablero[i][j] = num
-                    return("Numero ingresado")
+                    return("-- Numero ingresado --")
 
                 else:
-                    return("Ingrese otro numero")
+                    return("-- El numero se encuentra dentro del bloque --")
 
             else:
-                return("Ingrese otro numero")
+                return("-- El numero se repite en la fila o en la columna --")
 
         else:
-            return("Ingrese otro numero")
+            return("-- Esa posición es fija --")
