@@ -30,13 +30,17 @@ class Interfaz():
                         n = str(n)
                         print(self.Su.insertar_numero(n, f, c))
                     else:
-                        print('Ingrese un numero correcto')
+                        os.system("clear")
+                        print('-- Numero incorrecto --')
                 else:
-                    print('Ingrese un numero correcto')
+                    os.system("clear")
+                    print('-- Fila o columna no válida --')
             else:
-                print('Ingrese un numero correcto')
+                os.system("clear")
+                print('-- Fila o columna no válida --')
         except:
-            print('Ingrese un numero correcto')
+            os.system("clear")
+            print('-- Ingrese un numero --')
 
     def verificar_num(self, n):
         if 1 <= n <= 9:
