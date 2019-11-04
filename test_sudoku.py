@@ -18,6 +18,66 @@ class TestSudoku(unittest.TestCase):
             'xxxx8xx79'
         ])
 
+#TEST FUNCIONES
+
+    @parameterized.expand([
+        ('6', 0, 6),
+        ('5', 8, 6),
+        ('4', 8, 5),
+        ('3', 5, 3),
+        ('1', 5, 7)])
+    def test_verif_bloque_mal(self, num, fila, columna):
+        self.assertFalse(self.juego.verificar_bloque(num, fila, columna))
+
+    @parameterized.expand([
+        ('7', 0, 2),
+        ('8', 3, 1),
+        ('9', 8, 3),
+        ('2', 5, 7),
+        ('6', 6, 3)])
+    def test_fila_incorrecto(self, num, fila, columna):
+        self.assertFalse(self.juego.verificar_fila_columna(fila, columna, num))
+
+    @parameterized.expand([
+        ('8', 0, 2),
+        ('6', 3, 1),
+        ('1', 8, 3),
+        ('7', 5, 7),
+        ('1', 6, 3)])
+    def test_columna_incorrecto(self, num, fila, columna):
+        self.assertFalse(self.juego.verificar_fila_columna(fila, columna, num))
+
+    @parameterized.expand([
+        (3, 4),
+        (3, 8),
+        (4, 0),
+        (4, 3),
+        (4, 5)])
+    def test_pos_incorrecta(self, fila, columna):
+        self.assertFalse(self.juego.verificar_x(fila, columna))
+
+    def test_nogana(self):
+        self.assertFalse(self.juego.gano())
+
+    @parameterized.expand([
+        ('2', 0, 2),
+        ('3', 0, 6),
+        ('1', 8, 0),
+        ('1', 8, 6),
+        ('5', 3, 1)])
+    def test_verif_bloque_bien(self, num, fila, columna):
+        self.assertTrue(self.juego.verificar_bloque(num, fila, columna))
+    
+    @parameterized.expand([
+        ('1', 0, 2),
+        ('5', 3, 1),
+        ('2', 8, 3),
+        ('1', 5, 7),
+        ('3', 6, 3)])
+    def test_filaycolumna_correcto(self, num, fila, columna):
+        self.assertTrue(self.juego.verificar_fila_columna(fila, columna, num))
+
+#TEST DE INGRESO DE NUMERO
 
     @parameterized.expand([
         ('7', 0, 2),
